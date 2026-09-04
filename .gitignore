@@ -1,0 +1,41 @@
+# Output pipeline (non versionare)
+out/*
+!out/.gitkeep
+
+# Raw data (generati da preprocess, troppo grossi per git)
+datasets/*/raw_*.csv
+datasets/*/cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+.env
+.venv/
+venv/
+.coverage
+
+# Cache download
+datasets/*/cache/
+
+# Temp
+.tmp/
+cache/
+*.log
+
+# IDE
+.vscode/*
+!.vscode/settings.json
+.idea/
+
+# OS
+.DS_Store
+
+# Credentials
+credentials.json
+service_account.json
+*.key
+*.pem

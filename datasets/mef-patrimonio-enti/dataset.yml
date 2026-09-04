@@ -1,0 +1,50 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mef_patrimonio_enti"
+  source_id: "mef_de"
+  tags: [finanza-pubblica, mef, patrimonio, enti, adempimento]
+  category: finanza-pubblica
+  years: [2023]
+  time_coverage: {start_year: 2023, end_year: 2023}
+
+raw:
+  output_policy: overwrite
+  sources:
+    - type: script
+      args:
+        command: "python preprocess.py {year} raw_enti_{year}.csv"
+        output: "raw_enti_{year}.csv"
+        filename: "raw_enti_{year}.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read: {source: auto, mode: latest, delim: ";", encoding: "utf-8", header: true}
+  required_columns:
+    - anno
+    - amministrazione_denominazione
+    - amministrazione_codice_fiscale
+    - regione
+    - obbligo_comunicazione
+    - invio_comunicazione
+  validate:
+    min_rows: 10000
+    not_null: [amministrazione_denominazione, amministrazione_codice_fiscale]
+    primary_key: [amministrazione_codice_fiscale]
+
+mart:
+  tables:
+    - name: "mart_adempimento"
+      sql: "sql/mart_adempimento.sql"
+  required_tables: [mart_adempimento]
+  validate:
+    table_rules:
+      mart_adempimento:
+        required_columns: [anno, regione, obbligo_sì_invio_sì]
+        primary_key: [anno, regione]
+        min_rows: 10
+
+validation:
+  fail_on_error: true

@@ -1,0 +1,56 @@
+root: "../../out"
+schema_version: 1
+
+dataset:
+  name: "mef_patrimonio_detenzioni"
+  source_id: "mef_de"
+  tags: [finanza-pubblica, mef, patrimonio, detenzioni, canoni]
+  category: finanza-pubblica
+  years: [2023]
+  time_coverage: {start_year: 2023, end_year: 2023}
+
+raw:
+  output_policy: overwrite
+  sources:
+    - type: script
+      args:
+        command: "python preprocess.py {year} raw_detenzioni_{year}.csv"
+        output: "raw_detenzioni_{year}.csv"
+        filename: "raw_detenzioni_{year}.csv"
+      primary: true
+
+clean:
+  sql: "sql/clean.sql"
+  read: {source: auto, mode: latest, delim: ";", encoding: "utf-8", header: true, quote: '"'}
+  required_columns:
+    - anno
+    - id_variazione
+    - id_bene
+    - amministrazione_denominazione
+    - amministrazione_codice_fiscale
+    - tipo_detenzione_terzi
+    - canone_annuale
+    - data_decorrenza
+    - data_scadenza
+    - soggetto_ricevente_tipo
+    - soggetto_ricevente_denominazione
+    - soggetto_ricevente_pa
+    - finalita_pf
+  validate:
+    min_rows: 100000
+    not_null: [anno, id_variazione]
+
+mart:
+  tables:
+    - name: "mart_tipo_detenzione"
+      sql: "sql/mart_tipo_detenzione.sql"
+  required_tables: [mart_tipo_detenzione]
+  validate:
+    table_rules:
+      mart_tipo_detenzione:
+        required_columns: [anno, tipo_detenzione_terzi, n, canone_totale]
+        primary_key: [anno, tipo_detenzione_terzi]
+        min_rows: 3
+
+validation:
+  fail_on_error: true

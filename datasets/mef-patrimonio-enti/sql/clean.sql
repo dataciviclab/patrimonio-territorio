@@ -1,0 +1,21 @@
+SELECT
+    {year}::INTEGER AS anno,
+    normalize_string("Settore Istituzionale") AS settore_istituzionale,
+    normalize_string("Macrocategoria Amministrazione") AS macrocategoria_amministrazione,
+    normalize_string("Tipologia Amministrazione") AS tipologia_amministrazione,
+    normalize_string("Amministrazione Denominazione") AS amministrazione_denominazione,
+    normalize_string(REPLACE(REPLACE("Amministrazione Codice Fiscale", '[', ''), ']', '')) AS amministrazione_codice_fiscale,
+    normalize_string("Regione (Amministrazione)") AS regione,
+    normalize_string("Provincia (Amministrazione)") AS provincia,
+    normalize_string("Comune (Amministrazione)") AS comune,
+    normalize_string("Cod. Comune (Amministrazione)") AS codice_comune,
+    cast_bigint("Numero beni in proprieta'") AS num_beni_proprieta,
+    cast_bigint("Numero beni in detenzione") AS num_beni_detenzione,
+    CASE WHEN UPPER(TRIM("Dichiarazione negativa")) LIKE 'S%' THEN TRUE ELSE FALSE END AS dichiarazione_negativa,
+    CASE WHEN UPPER(TRIM("Dich. di completezza dei dati")) LIKE 'S%' THEN TRUE ELSE FALSE END AS dichiarazione_completezza,
+    CASE WHEN UPPER(TRIM("Invio comunicazione")) LIKE 'S%' THEN TRUE ELSE FALSE END AS invio_comunicazione,
+    CASE WHEN UPPER(TRIM("Obbligo di comunicazione")) LIKE 'S%' THEN TRUE ELSE FALSE END AS obbligo_comunicazione,
+    normalize_string("Nome sezione") AS nome_sezione,
+    normalize_string("Nome file Beni Immobili Dichiarati") AS nome_file_immobili,
+    normalize_string("Nome file Detenzioni a favore di terzi") AS nome_file_detenzioni
+FROM raw_input
