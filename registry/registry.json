@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "repo": "patrimonio-territorio",
-  "source_repo": "patrimonio-territorio",
-  "updated_at": "2026-09-04",
+  "source_repo": "dataciviclab/patrimonio-territorio",
+  "updated_at": "2026-09-05",
   "datasets": [
     {
       "slug": "mef_patrimonio_detenzioni",
@@ -739,21 +739,27 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260904T192959Z_03c63e24",
+        "run_id": "20260905T122457Z_38b8731f",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
+          "raw": 100,
+          "clean": 100,
           "mart": 100
         },
         "output_rows": {
+          "raw": 564003,
+          "clean": 564003,
           "mart": 5
         },
         "output_bytes": {
-          "mart": 1591
+          "raw": 158991371,
+          "clean": 4449946,
+          "mart": 1589
         },
-        "started_at": "2026-09-04T19:29:59.824860+00:00",
-        "finished_at": "2026-09-04T19:30:00.035534+00:00",
-        "duration_seconds": 0.211
+        "started_at": "2026-09-05T12:24:57.557082+00:00",
+        "finished_at": "2026-09-05T12:25:35.048686+00:00",
+        "duration_seconds": 37.492
       }
     },
     {
@@ -764,7 +770,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260904T183214Z_c1537f56",
+        "run_id": "20260905T122535Z_f1eea63f",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -775,16 +781,16 @@
         "output_rows": {
           "raw": 11326,
           "clean": 11326,
-          "mart": 11326
+          "mart": 20
         },
         "output_bytes": {
           "raw": 2653469,
           "clean": 320557,
-          "mart": 320557
+          "mart": 2185
         },
-        "started_at": "2026-09-04T18:32:14.868297+00:00",
-        "finished_at": "2026-09-04T18:32:17.428179+00:00",
-        "duration_seconds": 2.56
+        "started_at": "2026-09-05T12:25:35.514721+00:00",
+        "finished_at": "2026-09-05T12:25:38.083211+00:00",
+        "duration_seconds": 2.568
       }
     },
     {
@@ -795,21 +801,27 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260904T191925Z_3356f723",
+        "run_id": "20260905T122538Z_71cb532c",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
+          "raw": 100,
+          "clean": 100,
           "mart": 100
         },
         "output_rows": {
+          "raw": 3257044,
+          "clean": 3257044,
           "mart": 127
         },
         "output_bytes": {
-          "mart": 7525
+          "raw": 1521994119,
+          "clean": 75424058,
+          "mart": 7516
         },
-        "started_at": "2026-09-04T19:19:25.975030+00:00",
-        "finished_at": "2026-09-04T19:19:26.636518+00:00",
-        "duration_seconds": 0.661
+        "started_at": "2026-09-05T12:25:38.574989+00:00",
+        "finished_at": "2026-09-05T12:28:11.468174+00:00",
+        "duration_seconds": 152.893
       }
     }
   ],
