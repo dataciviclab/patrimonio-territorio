@@ -1,36 +1,21 @@
 """Mappa immobili — Pin singoli per immobile nel comune selezionato."""
 
-import duckdb
 import plotly.express as px
 import streamlit as st
 
-from sources import IMMOBILI_CLEAN, fmt_mq
+from sources import fmt_mq, immobili_comune, kpi_comune, mappa_comuni
 
 st.title("🗺️ Mappa Immobili Pubblici")
 st.markdown("Seleziona un comune per vedere i singoli immobili sulla mappa.")
 
-if not IMMOBILI_CLEAN.exists():
-    st.warning("Dati non disponibili.")
-    st.stop()
-
-# ── Carica elenco comuni (leggero) ───────────────────────────────────────────
+# ── Elenco comuni per filtri cascata ─────────────────────────────────────────
 
 @st.cache_data(ttl=3600, show_spinner=False)
 def elenco_comuni():
-    con = duckdb.connect()
-    return con.sql(f"""
-        SELECT DISTINCT comune_bene, provincia_bene, regione_bene,
-            ROUND(AVG(latitudine), 5) AS lat,
-            ROUND(AVG(longitudine), 5) AS lon
-        FROM read_parquet('{IMMOBILI_CLEAN}')
-        WHERE latitudine IS NOT NULL
-        GROUP BY comune_bene, provincia_bene, regione_bene
-        ORDER BY comune_bene
-    """).df()
+    df = mappa_comuni()
+    return df[["comune_bene", "provincia_bene", "regione_bene"]].drop_duplicates().sort_values("comune_bene")
 
 df_comuni = elenco_comuni()
-
-# ── Filtri cascata ───────────────────────────────────────────────────────────
 
 col_f1, col_f2, col_f3 = st.columns(3)
 with col_f1:
@@ -43,7 +28,7 @@ with col_f3:
     comuni_list = sorted(df_comuni[
         (df_comuni["regione_bene"] == regione) & (df_comuni["provincia_bene"] == provincia)
     ]["comune_bene"].unique())
-    comune = st.selectbox("Comune", comuni_list, index=comuni_list.index("ROMA") if "ROMA" in comuni_list else 0)
+    comune = st.selectbox("Comune", comuni_list, index=0)
 
 # ── Filtri aggiuntivi ────────────────────────────────────────────────────────
 
@@ -63,27 +48,11 @@ with col_f5:
 
 # ── Query immobili del comune ────────────────────────────────────────────────
 
-con = duckdb.connect()
-where = [f"comune_bene = '{comune}'", "latitudine IS NOT NULL"]
-if filtro_tipo:
-    placeholders = ", ".join(f"'{t}'" for t in filtro_tipo)
-    where.append(f"tipologia_bene IN ({placeholders})")
-if filtro_util:
-    placeholders = ", ".join(f"'{u}'" for u in filtro_util)
-    where.append(f"utilizzo_bene IN ({placeholders})")
-
-where_sql = " AND ".join(where)
-
-df_imm = con.sql(f"""
-    SELECT
-        latitudine AS lat, longitudine AS lon,
-        id_bene, tipologia_bene, utilizzo_bene, vincoli,
-        natura_giuridica_bene, indirizzo, numero_civico,
-        superficie_riferimento_mq, epoca_costruzione,
-        amministrazione_denominazione
-    FROM read_parquet('{IMMOBILI_CLEAN}')
-    WHERE {where_sql}
-""").df()
+with st.spinner(f"Caricamento {comune}..."):
+    df_imm = immobili_comune(
+        comune, provincia, regione,
+        tuple(filtro_tipo), tuple(filtro_util),
+    )
 
 if df_imm.empty:
     st.warning("Nessun immobile per i filtri selezionati.")
@@ -91,17 +60,7 @@ if df_imm.empty:
 
 # ── KPI del comune ───────────────────────────────────────────────────────────
 
-kpi = con.sql(f"""
-    SELECT
-        COUNT(*) AS totale,
-        COUNT(CASE WHEN utilizzo_bene = 'Non utilizzato' THEN 1 END) AS non_utilizzati,
-        COUNT(CASE WHEN utilizzo_bene = 'Inutilizzabile' THEN 1 END) AS inutilizzabili,
-        ROUND(SUM(COALESCE(superficie_riferimento_mq, 0)), 0) AS superficie,
-        COUNT(CASE WHEN vincoli != 'Nessuno' AND vincoli IS NOT NULL THEN 1 END) AS vincolati
-    FROM read_parquet('{IMMOBILI_CLEAN}')
-    WHERE comune_bene = '{comune}'
-""").df()
-
+kpi = kpi_comune(comune)
 row = kpi.iloc[0]
 c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Immobili totali", f"{int(row['totale']):,}".replace(",", "."))

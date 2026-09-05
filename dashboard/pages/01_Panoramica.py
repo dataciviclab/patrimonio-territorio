@@ -110,13 +110,14 @@ st.subheader("🗺️ Regioni per % immobili non utilizzati")
 
 df_reg = regioni_inutilizzati()
 if df_reg is not None and not df_reg.empty:
+    df_reg = df_reg.sort_values("pct_inutilizzati", ascending=True)
     fig_reg = px.bar(df_reg, x="pct_inutilizzati", y="regione_bene", orientation="h",
                      color="pct_inutilizzati", color_continuous_scale="Reds",
                      labels={"pct_inutilizzati": "% Non utilizzati", "regione_bene": ""})
     fig_reg.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=500,
                           coloraxis_colorbar=dict(title="%"),
-                          yaxis=dict(autorange="reversed"),
                           paper_bgcolor="rgba(0,0,0,0)")
+    fig_reg.update_yaxes(categoryorder="total ascending")
     st.plotly_chart(fig_reg, width="stretch")
 
 st.caption("Dati: MEF Dipartimento Economia — 2023 · CC BY 4.0")
