@@ -739,7 +739,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260905T122457Z_38b8731f",
+        "run_id": "20260905T124639Z_7d5d4a9d",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -757,9 +757,9 @@
           "clean": 4449946,
           "mart": 1589
         },
-        "started_at": "2026-09-05T12:24:57.557082+00:00",
-        "finished_at": "2026-09-05T12:25:35.048686+00:00",
-        "duration_seconds": 37.492
+        "started_at": "2026-09-05T12:46:39.032746+00:00",
+        "finished_at": "2026-09-05T12:47:20.019775+00:00",
+        "duration_seconds": 40.987
       }
     },
     {
@@ -770,7 +770,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260905T122535Z_f1eea63f",
+        "run_id": "20260905T124720Z_281cd05d",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -786,11 +786,11 @@
         "output_bytes": {
           "raw": 2653469,
           "clean": 320557,
-          "mart": 2185
+          "mart": 2196
         },
-        "started_at": "2026-09-05T12:25:35.514721+00:00",
-        "finished_at": "2026-09-05T12:25:38.083211+00:00",
-        "duration_seconds": 2.568
+        "started_at": "2026-09-05T12:47:20.450808+00:00",
+        "finished_at": "2026-09-05T12:47:22.963212+00:00",
+        "duration_seconds": 2.512
       }
     },
     {
@@ -801,7 +801,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20260905T122538Z_71cb532c",
+        "run_id": "20260905T124723Z_fd476882",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -817,11 +817,11 @@
         "output_bytes": {
           "raw": 1521994119,
           "clean": 75424058,
-          "mart": 7516
+          "mart": 7559
         },
-        "started_at": "2026-09-05T12:25:38.574989+00:00",
-        "finished_at": "2026-09-05T12:28:11.468174+00:00",
-        "duration_seconds": 152.893
+        "started_at": "2026-09-05T12:47:23.367238+00:00",
+        "finished_at": "2026-09-05T12:49:54.256483+00:00",
+        "duration_seconds": 150.889
       }
     }
   ],
