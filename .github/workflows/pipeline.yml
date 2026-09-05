@@ -58,14 +58,14 @@ jobs:
             slug=$(basename "$slug_dir")
             year=$(ls "$slug_dir" 2>/dev/null | sort -rn | head -1)
             [ -z "$year" ] && echo "No clean for $slug" && continue
-            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-clean/${slug}/${year}/"
+            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-clean/patrimonio_territorio/${slug}/${year}/"
           done
           for slug_dir in out/data/mart/*/; do
             [ -d "$slug_dir" ] || continue
             slug=$(basename "$slug_dir")
             year=$(ls "$slug_dir" 2>/dev/null | sort -rn | head -1)
             [ -z "$year" ] && echo "No mart for $slug" && continue
-            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-mart/${slug}/${year}/"
+            gsutil -m rsync -r "${slug_dir}${year}/" "gs://dataciviclab-mart/patrimonio_territorio/${slug}/${year}/"
           done
           echo "✅ Synced to GCS"
 
