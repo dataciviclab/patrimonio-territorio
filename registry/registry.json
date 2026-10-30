@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "patrimonio-territorio",
   "source_repo": "dataciviclab/patrimonio-territorio",
-  "updated_at": "2026-10-01",
+  "updated_at": "2026-10-30",
   "datasets": [
     {
       "slug": "mef_patrimonio_detenzioni",
@@ -89,7 +89,8 @@
           "name": "codice_comune_amministrazione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "description": "",
+          "semantic_type": "municipality_code"
         },
         {
           "name": "tipo_detenzione_terzi",
@@ -143,7 +144,8 @@
           "name": "soggetto_ricevente_cf",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "description": "",
+          "semantic_type": "fiscal_code"
         },
         {
           "name": "soggetto_ricevente_pa",
@@ -421,7 +423,8 @@
           "name": "codice_comune_amministrazione",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "description": "",
+          "semantic_type": "municipality_code"
         },
         {
           "name": "titolo_proprieta",
@@ -469,7 +472,8 @@
           "name": "soggetto_cedente_cf",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "description": "",
+          "semantic_type": "fiscal_code"
         },
         {
           "name": "id_bene",
@@ -517,7 +521,8 @@
           "name": "codice_comune_bene",
           "type": "VARCHAR",
           "role": "dimension",
-          "description": ""
+          "description": "",
+          "semantic_type": "municipality_code"
         },
         {
           "name": "indirizzo",
@@ -739,7 +744,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261001T122718Z_023cb56b",
+        "run_id": "20261030T005814Z_127c322a",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -755,11 +760,11 @@
         "output_bytes": {
           "raw": 158991371,
           "clean": 4449946,
-          "mart": 1587
+          "mart": 1586
         },
-        "started_at": "2026-10-01T12:27:18.042762+00:00",
-        "finished_at": "2026-10-01T12:28:07.758484+00:00",
-        "duration_seconds": 49.716
+        "started_at": "2026-10-30T00:58:14.010180+00:00",
+        "finished_at": "2026-10-30T00:58:53.103558+00:00",
+        "duration_seconds": 39.093
       }
     },
     {
@@ -770,7 +775,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261001T122808Z_d2951778",
+        "run_id": "20261030T005855Z_3a391735",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -786,11 +791,11 @@
         "output_bytes": {
           "raw": 2653469,
           "clean": 320557,
-          "mart": 2200
+          "mart": 2196
         },
-        "started_at": "2026-10-01T12:28:08.158782+00:00",
-        "finished_at": "2026-10-01T12:28:10.369085+00:00",
-        "duration_seconds": 2.21
+        "started_at": "2026-10-30T00:58:55.137356+00:00",
+        "finished_at": "2026-10-30T00:58:56.368238+00:00",
+        "duration_seconds": 1.231
       }
     },
     {
@@ -801,7 +806,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261001T122810Z_c3e6a500",
+        "run_id": "20261030T005856Z_61527a9f",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -817,11 +822,11 @@
         "output_bytes": {
           "raw": 1521994119,
           "clean": 75424058,
-          "mart": 7554
+          "mart": 7496
         },
-        "started_at": "2026-10-01T12:28:10.768195+00:00",
-        "finished_at": "2026-10-01T12:30:58.219402+00:00",
-        "duration_seconds": 167.451
+        "started_at": "2026-10-30T00:58:56.681737+00:00",
+        "finished_at": "2026-10-30T01:00:51.533688+00:00",
+        "duration_seconds": 114.852
       }
     }
   ],
@@ -833,6 +838,12 @@
         "label": "Comune (ISTAT)",
         "datasets": [
           {
+            "slug": "mef_patrimonio_detenzioni",
+            "name": "Mef Patrimonio Detenzioni",
+            "column": "codice_comune_amministrazione",
+            "semantic_type": "municipality_code"
+          },
+          {
             "slug": "mef_patrimonio_enti",
             "name": "Mef Patrimonio Enti",
             "column": "comune",
@@ -843,11 +854,23 @@
             "name": "Mef Patrimonio Enti",
             "column": "codice_comune",
             "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "mef_patrimonio_immobili",
+            "name": "Mef Patrimonio Immobili",
+            "column": "codice_comune_amministrazione",
+            "semantic_type": "municipality_code"
+          },
+          {
+            "slug": "mef_patrimonio_immobili",
+            "name": "Mef Patrimonio Immobili",
+            "column": "codice_comune_bene",
+            "semantic_type": "municipality_code"
           }
         ],
         "types": {
-          "municipality_name": 1,
-          "municipality_code": 1
+          "municipality_code": 4,
+          "municipality_name": 1
         }
       },
       "Ente (o Impresa)": {
@@ -861,6 +884,12 @@
             "semantic_type": "fiscal_code"
           },
           {
+            "slug": "mef_patrimonio_detenzioni",
+            "name": "Mef Patrimonio Detenzioni",
+            "column": "soggetto_ricevente_cf",
+            "semantic_type": "fiscal_code"
+          },
+          {
             "slug": "mef_patrimonio_enti",
             "name": "Mef Patrimonio Enti",
             "column": "amministrazione_codice_fiscale",
@@ -871,10 +900,16 @@
             "name": "Mef Patrimonio Immobili",
             "column": "amministrazione_codice_fiscale",
             "semantic_type": "fiscal_code"
+          },
+          {
+            "slug": "mef_patrimonio_immobili",
+            "name": "Mef Patrimonio Immobili",
+            "column": "soggetto_cedente_cf",
+            "semantic_type": "fiscal_code"
           }
         ],
         "types": {
-          "fiscal_code": 3
+          "fiscal_code": 5
         }
       },
       "Provincia": {
