@@ -6,13 +6,11 @@ Auto-detect locale/GCS: in locale legge da out/, su GCS da gs://.
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import streamlit as st
-
-from lab_connectors.branding import apply_branding
 from lab_connectors.duckdb.queries import (
     load_mart_table as _load_mart_table,
+)
+from lab_connectors.duckdb.queries import (
     query_clean as _query_clean,
 )
 
@@ -97,7 +95,11 @@ def mappa_comuni(regione: str = None):
             ROUND(AVG(latitudine), 5) AS lat, ROUND(AVG(longitudine), 5) AS lon,
             COUNT(*) AS totale,
             COUNT(CASE WHEN utilizzo_bene = 'Non utilizzato' THEN 1 END) AS non_utilizzati,
-            ROUND(100.0 * COUNT(CASE WHEN utilizzo_bene = 'Non utilizzato' THEN 1 END) / COUNT(*), 1) AS pct_inutilizzati,
+            ROUND(
+                100.0 * COUNT(CASE WHEN utilizzo_bene = 'Non utilizzato' THEN 1 END)
+                / COUNT(*),
+                1,
+            ) AS pct_inutilizzati,
             ROUND(SUM(COALESCE(superficie_riferimento_mq, 0)) / 1000, 0) AS sup_kmq,
             COUNT(CASE WHEN vincoli != 'Nessuno' AND vincoli IS NOT NULL THEN 1 END) AS vincolati,
             MODE() WITHIN GROUP (ORDER BY tipologia_bene) AS tipologia_top
@@ -107,7 +109,13 @@ def mappa_comuni(regione: str = None):
 
 
 @st.cache_data(ttl=3600, show_spinner=False)
-def immobili_comune(comune: str, provincia: str, regione: str, filtro_tipo: tuple = (), filtro_util: tuple = ()):
+def immobili_comune(
+    comune: str,
+    provincia: str,
+    regione: str,
+    filtro_tipo: tuple = (),
+    filtro_util: tuple = (),
+):
     where = [f"comune_bene = '{comune}'", "latitudine IS NOT NULL"]
     if filtro_tipo:
         placeholders = ", ".join(f"'{t}'" for t in filtro_tipo)

@@ -2,7 +2,6 @@
 
 import plotly.express as px
 import streamlit as st
-
 from sources import regioni_inutilizzati
 
 st.title("🏘️ Territorio")

@@ -5,6 +5,7 @@ Mappa del patrimonio immobiliare pubblico italiano: 3,2 milioni di immobili, 100
 """
 
 import streamlit as st
+from lab_connectors.branding import apply_branding
 
 st.set_page_config(
     page_title="Patrimonio Pubblico Italia",
@@ -12,8 +13,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
-from lab_connectors.branding import apply_branding
 
 apply_branding(
     repo_name="patrimonio-territorio",
