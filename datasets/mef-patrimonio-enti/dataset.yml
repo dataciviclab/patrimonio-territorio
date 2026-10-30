@@ -12,10 +12,12 @@ dataset:
 raw:
   output_policy: overwrite
   sources:
-    - type: script
+    - name: "mef_patrimonio_enti"
+      type: "http_file"
+      client:
+        timeout: 300
       args:
-        command: "python preprocess.py {year} raw_enti_{year}.csv"
-        output: "raw_enti_{year}.csv"
+        url: "https://www.de.mef.gov.it/modules/documenti_it/attivo_patrimonio/immobili_{year}/Dati_Adempimento_Anno_{year}.csv"
         filename: "raw_enti_{year}.csv"
       primary: true
 
