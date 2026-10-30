@@ -23,4 +23,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dataciviclab/.github/actions/python-setup@main
+        with:
+          install-extras: "dev,pipeline"
       - run: make check

@@ -3,7 +3,6 @@
 import altair as alt
 import plotly.express as px
 import streamlit as st
-
 from sources import (
     distribuzione_tipologia,
     distribuzione_utilizzo,
@@ -37,11 +36,18 @@ util = int(row["utilizzati"])
 sup_tot = float(row["superficie_totale"])
 
 det_n = int(df_det.iloc[0]["totale"]) if df_det is not None and not df_det.empty else 0
-det_canoni = float(df_det.iloc[0]["totale_canoni"]) if df_det is not None and not df_det.empty else 0
+det_canoni = (
+    float(df_det.iloc[0]["totale_canoni"]) if df_det is not None and not df_det.empty else 0
+)
 
 c1, c2, c3, c4, c5 = st.columns(5)
 c1.metric("Immobili totali", fmt_num(totale))
-c2.metric("Non utilizzati", fmt_num(non_util), f"{100.0 * non_util / totale:.1f}%", delta_color="inverse")
+c2.metric(
+    "Non utilizzati",
+    fmt_num(non_util),
+    f"{100.0 * non_util / totale:.1f}%",
+    delta_color="inverse",
+)
 c3.metric("Detenzioni attive", fmt_num(det_n))
 c4.metric("Canoni incassati", fmt_eur(det_canoni))
 c5.metric("Superficie totale", fmt_mq(sup_tot))
@@ -65,9 +71,13 @@ if df_util is not None and not df_util.empty:
     with col_pie:
         fig_pie = px.pie(df_util, values="n", names="stato", color="stato",
                          color_discrete_map=color_map, hole=0.4)
-        fig_pie.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=300,
-                              showlegend=True, legend=dict(orientation="h", yanchor="bottom", y=-0.2),
-                              paper_bgcolor="rgba(0,0,0,0)")
+        fig_pie.update_layout(
+            margin=dict(l=0, r=0, t=0, b=0),
+            height=300,
+            showlegend=True,
+            legend=dict(orientation="h", yanchor="bottom", y=-0.2),
+            paper_bgcolor="rgba(0,0,0,0)",
+        )
         st.plotly_chart(fig_pie, width="stretch")
     with col_chart:
         chart = (

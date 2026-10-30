@@ -2,7 +2,6 @@
 
 import plotly.express as px
 import streamlit as st
-
 from sources import fmt_mq, immobili_comune, kpi_comune, mappa_comuni
 
 st.title("🗺️ Mappa Immobili Pubblici")
@@ -13,17 +12,31 @@ st.markdown("Seleziona un comune per vedere i singoli immobili sulla mappa.")
 @st.cache_data(ttl=3600, show_spinner=False)
 def elenco_comuni():
     df = mappa_comuni()
-    return df[["comune_bene", "provincia_bene", "regione_bene"]].drop_duplicates().sort_values("comune_bene")
+    return (
+        df[["comune_bene", "provincia_bene", "regione_bene"]]
+        .drop_duplicates()
+        .sort_values("comune_bene")
+    )
 
 df_comuni = elenco_comuni()
 
 col_f1, col_f2, col_f3 = st.columns(3)
 with col_f1:
     regioni = sorted(df_comuni["regione_bene"].unique())
-    regione = st.selectbox("Regione", regioni, index=regioni.index("LAZIO") if "LAZIO" in regioni else 0)
+    regione = st.selectbox(
+        "Regione",
+        regioni,
+        index=regioni.index("LAZIO") if "LAZIO" in regioni else 0,
+    )
 with col_f2:
-    prov_list = sorted(df_comuni[df_comuni["regione_bene"] == regione]["provincia_bene"].unique())
-    provincia = st.selectbox("Provincia", prov_list, index=prov_list.index("ROMA") if "ROMA" in prov_list else 0)
+    prov_list = sorted(
+        df_comuni[df_comuni["regione_bene"] == regione]["provincia_bene"].unique()
+    )
+    provincia = st.selectbox(
+        "Provincia",
+        prov_list,
+        index=prov_list.index("ROMA") if "ROMA" in prov_list else 0,
+    )
 with col_f3:
     comuni_list = sorted(df_comuni[
         (df_comuni["regione_bene"] == regione) & (df_comuni["provincia_bene"] == provincia)

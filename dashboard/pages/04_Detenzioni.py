@@ -3,7 +3,6 @@
 import altair as alt
 import plotly.express as px
 import streamlit as st
-
 from sources import (
     detenzioni_per_finalita,
     detenzioni_per_tipo,
@@ -44,7 +43,11 @@ if df_tipo is not None and not df_tipo.empty:
             .mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3, color="#6366f1")
             .encode(
                 x=alt.X("n:Q", title="N. detenzioni", axis=alt.Axis(format="~s")),
-                y=alt.Y("tipo:N" if "tipo" in df_tipo.columns else "tipo_detenzione_terzi:N", title="", sort="-x"),
+                y=alt.Y(
+                    "tipo:N" if "tipo" in df_tipo.columns else "tipo_detenzione_terzi:N",
+                    title="",
+                    sort="-x",
+                ),
                 tooltip=[alt.Tooltip("n:Q", format=",")],
             ).properties(height=250)
         )
@@ -57,8 +60,16 @@ if df_tipo is not None and not df_tipo.empty:
                 alt.Chart(df_c)
                 .mark_bar(cornerRadiusTopLeft=3, cornerRadiusTopRight=3, color="#22c55e")
                 .encode(
-                    x=alt.X(f"{col_canone}:Q", title="Canone totale (€)", axis=alt.Axis(format="~s")),
-                    y=alt.Y("tipo:N" if "tipo" in df_c.columns else "tipo_detenzione_terzi:N", title="", sort="-x"),
+                    x=alt.X(
+                        f"{col_canone}:Q",
+                        title="Canone totale (€)",
+                        axis=alt.Axis(format="~s"),
+                    ),
+                    y=alt.Y(
+                        "tipo:N" if "tipo" in df_c.columns else "tipo_detenzione_terzi:N",
+                        title="",
+                        sort="-x",
+                    ),
                 ).properties(height=250)
             )
             st.altair_chart(chart2, width="stretch")
@@ -74,17 +85,25 @@ if df_fin is not None and not df_fin.empty:
     col_f1, col_f2 = st.columns(2)
     with col_f1:
         fig_fin = px.pie(df_fin, values="n", names="finalita", hole=0.4)
-        fig_fin.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=300,
-                              showlegend=True, legend=dict(orientation="h", yanchor="bottom", y=-0.3),
-                              paper_bgcolor="rgba(0,0,0,0)")
+        fig_fin.update_layout(
+            margin=dict(l=0, r=0, t=0, b=0),
+            height=300,
+            showlegend=True,
+            legend=dict(orientation="h", yanchor="bottom", y=-0.3),
+            paper_bgcolor="rgba(0,0,0,0)",
+        )
         st.plotly_chart(fig_fin, width="stretch")
     with col_f2:
         df_fin_eur = df_fin[df_fin["canone_totale"] > 0]
         if not df_fin_eur.empty:
             fig_fin2 = px.pie(df_fin_eur, values="canone_totale", names="finalita", hole=0.4)
-            fig_fin2.update_layout(margin=dict(l=0, r=0, t=0, b=0), height=300,
-                                   showlegend=True, legend=dict(orientation="h", yanchor="bottom", y=-0.3),
-                                   paper_bgcolor="rgba(0,0,0,0)")
+            fig_fin2.update_layout(
+                margin=dict(l=0, r=0, t=0, b=0),
+                height=300,
+                showlegend=True,
+                legend=dict(orientation="h", yanchor="bottom", y=-0.3),
+                paper_bgcolor="rgba(0,0,0,0)",
+            )
             st.plotly_chart(fig_fin2, width="stretch")
 
 st.markdown("---")
