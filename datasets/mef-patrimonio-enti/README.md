@@ -15,9 +15,9 @@ Anagrafe degli enti pubblici con lo stato di adempimento al censimento immobilia
 
 Una riga = ente/PA. Colonne: denominazione, CF, localizzazione, n. beni proprietà/detenzione, flag adempimento.
 
-## Preprocess
+## Download
 
-`preprocess.py` — normalizza encoding (latin-1 vs utf-8 tra anni) e unifica nomi colonna.
+`http_file` (toolkit) sul CSV MEF. La config copre il 2023 (utf-8); per anni con encoding o nomi colonna diversi servono override in `clean.read`/`clean.sql`.
 
 ## Join
 
