@@ -2,7 +2,7 @@
   "schema_version": 1,
   "repo": "patrimonio-territorio",
   "source_repo": "dataciviclab/patrimonio-territorio",
-  "updated_at": "2026-10-30",
+  "updated_at": "2026-11-01",
   "datasets": [
     {
       "slug": "mef_patrimonio_detenzioni",
@@ -744,7 +744,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261030T005814Z_127c322a",
+        "run_id": "20261101T124053Z_2dd7aae9",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -760,11 +760,11 @@
         "output_bytes": {
           "raw": 158991371,
           "clean": 4449946,
-          "mart": 1586
+          "mart": 1589
         },
-        "started_at": "2026-10-30T00:58:14.010180+00:00",
-        "finished_at": "2026-10-30T00:58:53.103558+00:00",
-        "duration_seconds": 39.093
+        "started_at": "2026-11-01T12:40:53.087933+00:00",
+        "finished_at": "2026-11-01T12:41:36.724180+00:00",
+        "duration_seconds": 43.636
       }
     },
     {
@@ -775,7 +775,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261030T005855Z_3a391735",
+        "run_id": "20261101T124138Z_bd35b3fb",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -791,11 +791,11 @@
         "output_bytes": {
           "raw": 2653469,
           "clean": 320557,
-          "mart": 2196
+          "mart": 2182
         },
-        "started_at": "2026-10-30T00:58:55.137356+00:00",
-        "finished_at": "2026-10-30T00:58:56.368238+00:00",
-        "duration_seconds": 1.231
+        "started_at": "2026-11-01T12:41:38.939442+00:00",
+        "finished_at": "2026-11-01T12:41:40.146238+00:00",
+        "duration_seconds": 1.207
       }
     },
     {
@@ -806,7 +806,7 @@
       "detail": "anno 2023 — mart: si",
       "action": "",
       "run": {
-        "run_id": "20261030T005856Z_61527a9f",
+        "run_id": "20261101T124140Z_f6ee3023",
         "year": 2023,
         "status": "SUCCESS",
         "quality_score": {
@@ -822,11 +822,11 @@
         "output_bytes": {
           "raw": 1521994119,
           "clean": 75424058,
-          "mart": 7496
+          "mart": 7530
         },
-        "started_at": "2026-10-30T00:58:56.681737+00:00",
-        "finished_at": "2026-10-30T01:00:51.533688+00:00",
-        "duration_seconds": 114.852
+        "started_at": "2026-11-01T12:41:40.477254+00:00",
+        "finished_at": "2026-11-01T12:43:35.385462+00:00",
+        "duration_seconds": 114.908
       }
     }
   ],
