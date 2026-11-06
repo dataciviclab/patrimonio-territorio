@@ -13,6 +13,12 @@ from lab_connectors.duckdb.queries import (
 from lab_connectors.duckdb.queries import (
     query_clean as _query_clean,
 )
+from lab_connectors.formatters import (
+    fmt_eur as _fmt_eur,
+)
+from lab_connectors.formatters import (
+    fmt_num as _fmt_num,
+)
 
 # ── Costanti dominio ─────────────────────────────────────────────────────────
 
@@ -199,21 +205,13 @@ def distribuzione_natura():
 # ── Formattazione ────────────────────────────────────────────────────────────
 
 def fmt_num(val):
-    if val is None or val != val:
-        return "-"
-    return f"{int(val):,}".replace(",", ".")
+    """Numero con separatori italiani (formatter canonico del Lab)."""
+    return _fmt_num(val)
 
 
 def fmt_eur(val):
-    if val is None or val != val:
-        return "-"
-    if abs(val) >= 1e9:
-        return f"{val/1e9:.1f} mld EUR"
-    if abs(val) >= 1e6:
-        return f"{val/1e6:.1f} M EUR"
-    if abs(val) >= 1e3:
-        return f"{val/1e3:.0f} kEUR"
-    return f"{val:.0f} EUR"
+    """Euro compatti (mld/mln) con formatter canonico del Lab."""
+    return _fmt_eur(val, compact=True)
 
 
 def fmt_mq(val):
